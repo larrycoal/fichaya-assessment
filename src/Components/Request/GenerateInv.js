@@ -1,21 +1,74 @@
 import React, { useState } from "react";
 
 const GenerateInv = () => {
-  const [formData, setFormData] = useState({});
+  const [valid, setMessage] = useState({
+    error: false,
+    message: "",
+  });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    issue_date: "",
+    due_date: "",
+    inv_num: "",
+    vat: 0,
+    serv_desc: "",
+    serv_amount: 0,
+    total:0
+  });
 
   const handleFormData = (e) => {
- const {name,value} =e.target
- setFormData({
-     ...formData,
-     [name]:value
- })
+    const { name, value } = e.target;
+    if(name === "email"){
+        validate(value)
+    }
+    // if(name==="serv_amount" ||name === "vat"){
+    //     const total = (formData.vat/100*formData.serv_amount)+formData.serv_amount
+    //     setFormData({
+    //         ...formData,
+    //         total
+    //     })
+    // }
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
+  const submitForm = () => {
+    for (let key in formData) {
+      if (formData[key] === "") {
+        setMessage({
+          error: true,
+          message: "All fields need to be completed",
+        });
+      }else{
 
-  const submitForm = ()=>{
-    console.log(formData)
-
-  }
+        setMessage({
+            error: false,
+            message: "",
+          });
+      }
+    }
+    console.log(valid);
+    console.log(formData);
+  };
+  const validate = (value) => {
+      const valid = /.{1,}@[^.]{1,}/.test(value)
+      if(!valid){
+          setMessage({
+              error:true,
+              message:"Enter a valid Email"
+          })
+      }else{
+        setMessage({
+            error:false,
+            message:""
+        })
+      }
+  };
   return (
     <div className="generateInv_wrapper">
       <span className="page_header">Generate invoice</span>
@@ -39,6 +92,7 @@ const GenerateInv = () => {
                 type="email"
                 name="email"
                 onChange={(e) => handleFormData(e)}
+                value={formData.email}
               />
             </span>
             <span>
@@ -46,6 +100,7 @@ const GenerateInv = () => {
               <input
                 type="number"
                 name="phone"
+                value={formData.phone}
                 onChange={(e) => handleFormData(e)}
               />
             </span>
@@ -55,6 +110,7 @@ const GenerateInv = () => {
             <input
               type="text"
               name="address"
+              value={formData.address}
               onChange={(e) => handleFormData(e)}
             />
           </section>
@@ -66,6 +122,7 @@ const GenerateInv = () => {
               <input
                 type="date"
                 name="issue_date"
+                value={formData.issue_date}
                 onChange={(e) => handleFormData(e)}
               />
             </span>
@@ -74,6 +131,7 @@ const GenerateInv = () => {
               <input
                 type="date"
                 name="due_date"
+                value={formData.due_date}
                 onChange={(e) => handleFormData(e)}
               />
             </span>
@@ -84,6 +142,7 @@ const GenerateInv = () => {
               <input
                 type="number"
                 name="inv_num"
+                value={formData.inv_num}
                 onChange={(e) => handleFormData(e)}
               />
             </span>
@@ -92,6 +151,7 @@ const GenerateInv = () => {
               <input
                 type="number"
                 name="vat"
+                value={formData.vat}
                 onChange={(e) => handleFormData(e)}
               />
             </span>
@@ -101,6 +161,7 @@ const GenerateInv = () => {
             <input
               type="text"
               name="serv_desc"
+              value={formData.serv_desc}
               onChange={(e) => handleFormData(e)}
             />
           </section>
@@ -110,12 +171,13 @@ const GenerateInv = () => {
               <input
                 type="number"
                 name="serv_amount"
+                value={formData.serv_amount}
                 onChange={(e) => handleFormData(e)}
               />
             </span>
             <span>
               <label>Total Amount</label>
-              <input type="number" />
+              <input type="number" name="total" value={ formData.total}  readOnly/>
             </span>
           </section>
         </div>
