@@ -221,3 +221,10 @@ i{
     border-radius: 5px;
     color: #01037C;
 }
+#total{
+    font-size: 1rem;
+    background-color: #EDEDED;
+    padding: .5rem;
+    border-radius: 5px;
+    color: #606077;
+}

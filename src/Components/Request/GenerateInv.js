@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 const GenerateInv = () => {
   const [valid, setMessage] = useState({
-    error: false,
-    message: "",
+      error:false,
+      message:""
   });
   const [formData, setFormData] = useState({
     name: "",
@@ -13,10 +13,10 @@ const GenerateInv = () => {
     issue_date: "",
     due_date: "",
     inv_num: "",
-    vat: 0,
+    vat: "",
     serv_desc: "",
-    serv_amount: 0,
-    total:0
+    serv_amount: "",
+    total:""
   });
 
   const handleFormData = (e) => {
@@ -24,13 +24,6 @@ const GenerateInv = () => {
     if(name === "email"){
         validate(value)
     }
-    // if(name==="serv_amount" ||name === "vat"){
-    //     const total = (formData.vat/100*formData.serv_amount)+formData.serv_amount
-    //     setFormData({
-    //         ...formData,
-    //         total
-    //     })
-    // }
     setFormData({
       ...formData,
       [name]: value,
@@ -38,22 +31,27 @@ const GenerateInv = () => {
   };
 
   const submitForm = () => {
-    for (let key in formData) {
-      if (formData[key] === "") {
-        setMessage({
-          error: true,
-          message: "All fields need to be completed",
-        });
-      }else{
-
-        setMessage({
-            error: false,
-            message: "",
-          });
-      }
+    const total = calcTotal()
+    const newFormData = {...formData,total}
+    for(let key in newFormData){
+        if(newFormData[key]===""){
+            setMessage({
+                error:true,
+                message:"Please fill out all the fields"
+            })
+            return
+        }else{
+            setMessage({
+                error:false,
+                message:""
+            })
+        }
     }
-    console.log(valid);
-    console.log(formData);
+   if(!valid.error){
+       //dispatch action
+       //link to next page
+   }
+  
   };
   const validate = (value) => {
       const valid = /.{1,}@[^.]{1,}/.test(value)
@@ -68,7 +66,18 @@ const GenerateInv = () => {
             message:""
         })
       }
-  };
+    }
+  const calcTotal = ()=>{
+      if(formData.vat && formData.serv_amount){
+     const vat = formData.vat/100
+     const bill = formData.serv_amount
+     const vatCost = vat * bill
+     const total = Math.floor(parseInt(bill)+vatCost)
+     const format = new Intl.NumberFormat()
+    
+     return  format.format(total)
+      }else return 0
+  }
   return (
     <div className="generateInv_wrapper">
       <span className="page_header">Generate invoice</span>
@@ -177,7 +186,10 @@ const GenerateInv = () => {
             </span>
             <span>
               <label>Total Amount</label>
-              <input type="number" name="total" value={ formData.total}  readOnly/>
+              <span id="total">{
+              "NGN " + calcTotal()
+              }
+              </span>
             </span>
           </section>
         </div>
@@ -186,6 +198,9 @@ const GenerateInv = () => {
         <section>
           <button> Cancel</button>
           <button onClick={submitForm}> Create invoice</button>
+          {
+            valid.error? valid.message:null
+          }
         </section>
       </div>
     </div>
