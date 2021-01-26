@@ -1,7 +1,7 @@
 import React, { useContext, useEffect,useState } from "react";
 import { InvContext } from "../../Utils/InvContext";
 
-const PrevInv = () => {
+const PrevInv = (props) => {
   const { state } = useContext(InvContext);
   const [invoice,setInvoice]=useState({})
   useEffect(() => {
@@ -11,6 +11,10 @@ const PrevInv = () => {
   }, [state]);
   const renderInvoice = ()=>{
       const format = new Intl.NumberFormat()
+      const dateFormat =new Intl.DateTimeFormat("en-US",{dateStyle:"long"})
+      const dueDate = new Date(invoice.due_date)
+      const issueDate = new Date(invoice.issue_date)
+      console.log(dateFormat.format(dueDate))
        return invoice? 
        (
         <div className="previewInvoice_wrapper">
@@ -50,7 +54,7 @@ const PrevInv = () => {
               </span>
               <span>
                 <span>CREATED</span>
-                <span>{invoice.issue_date}</span>
+                <span>{dateFormat.format(issueDate)}</span>
               </span>
             </div>
           </section>
@@ -65,7 +69,7 @@ const PrevInv = () => {
             <div>
               <span>
                 <span>DUE</span>
-                <span>{invoice.due_date}</span>
+                <span>{dateFormat.format(dueDate)}</span>
               </span>
               <span>
                 <span>AMOUNT</span>
@@ -88,7 +92,7 @@ const PrevInv = () => {
                 <tr>
                   <td>{invoice.serv_desc}</td>
                   <td>1</td>
-                  <td>{invoice.serv_amount}</td>
+                  <td>NGN {format.format(invoice.serv_amount)}</td>
                   <td>NGN {invoice.total}</td>
                 </tr>
               </tbody>
@@ -100,7 +104,7 @@ const PrevInv = () => {
               <span>NGN {format.format(invoice.serv_amount)}</span>
             </div>
             <div>
-              <span>VAT(7.5%)</span>
+              <span>VAT({invoice.vat}%)</span>
               <span>NGN {format.format(Math.floor(invoice.vat/100 * invoice.serv_amount))}</span>
             </div>
             <div>
@@ -109,7 +113,12 @@ const PrevInv = () => {
             </div>
           </section>
         </div>
-        <div></div>
+        <div className="submit_wrapper bottom">
+        <section>
+          <button onClick={()=>{props.history.push("/request/generateinv")}}> GO BACK</button>
+          <button > SEND TO CUSTOMER</button>
+        </section>
+        </div>
       </div>
        )
        : "loading"

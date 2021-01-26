@@ -12,7 +12,6 @@ import {invReducer,initialState} from './Utils/Invoice'
 const App = () => {
   const [state,dispatch]=useReducer(invReducer,initialState)
   return (
-    <div>
       <Home>
         <Switch>
           <InvContext.Provider value = {{state,dispatch}}>
@@ -22,7 +21,6 @@ const App = () => {
           </InvContext.Provider>
         </Switch>
       </Home>
-    </div>
   );
 };
 

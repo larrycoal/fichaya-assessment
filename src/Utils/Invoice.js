@@ -1,4 +1,4 @@
-export const initialState = {}
+export const initialState = null
 export const invReducer = (state,action)=>{
    switch (action.type) {
        case "CREATEINVOICE":

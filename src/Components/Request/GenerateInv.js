@@ -196,7 +196,9 @@ const GenerateInv = (props) => {
         <section>
           <button> Cancel</button>
           <button onClick={submitForm}> Create invoice</button>
+          <div className="error">
           {valid.error ? valid.message : null}
+          </div>
         </section>
       </div>
     </div>

@@ -1,9 +1,10 @@
-import React from "react";
+import React,{useState} from "react";
 
 const Header = () => {
+  const [display,setDisplay]=useState(false)
   return (
     <nav className="nav_wrapper">
-      <div>
+      <div className="logo">
         <svg
           width="41"
           height="40"
@@ -19,7 +20,7 @@ const Header = () => {
           />
         </svg>
       </div>
-      <div className="links_wrapper">
+      <div className="links_wrapper" id={display?"show-menu":""}>
         <a href="/"> DASHBOARD</a>
         <a href="/">CUSTOMER</a>
         <a href="/">ASSOCIATES</a>
@@ -28,7 +29,7 @@ const Header = () => {
         <a href="/">PAYMENTS</a>
         <a href="/">SETTINGS</a>
       </div>
-      <div className="icons">
+      <div className="icons" id={display?"show-menu":""}>
         <span>
         <i class="fa fa-bell" aria-hidden="true"></i>
         </span>
@@ -36,8 +37,12 @@ const Header = () => {
         <i class="fa fa-user" aria-hidden="true"></i>
         <i class="fa fa-angle-down" aria-hidden="true"></i>
         </span>
-
       </div>
+      <div className="hamburger" onClick={()=>{setDisplay(!display)}}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
     </nav>
   );
 };

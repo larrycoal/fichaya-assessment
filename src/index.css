@@ -1,4 +1,4 @@
-html,body{
+html,body,#root{
     min-width: 100vw;
     min-height: 100vh;
     padding: 0;
@@ -8,6 +8,9 @@ html,body{
 }
 a{
     text-decoration: none;
+}
+.error{
+    color: red;
 }
 /*
 ===============================
@@ -46,6 +49,9 @@ a{
 i{
     color: white;
     padding: .3rem;
+}
+.hamburger{
+    display: none;
 }
 /*
 ===============================
@@ -96,7 +102,7 @@ i{
  font-size: 1rem;
 }
 .customer_wrapper .atn_btn{
-    padding: .5rem;
+    padding: .5rem 0px;
     display: flex;
     justify-content: flex-end;
 }
@@ -250,7 +256,7 @@ i{
     border-radius: 5px;
     width: 35rem;
     display: grid;
-    gap: 1rem;
+    gap: 2rem;
 }
 .previewInvoice_wrapper .invoiceNfo section{
     display: flex;
@@ -296,6 +302,10 @@ i{
     row-gap: .5rem;
     text-align: end;
 }
+.topNfo div:nth-child(2) span:nth-child(2) span:nth-child(2),
+.bottomNfo div:nth-child(2) span span:nth-child(2){
+    font-size: .9rem;
+}
 .topNfo div:nth-child(2) span:nth-child(1) span:nth-child(2){
 color: red;
 font-size: .9rem;
@@ -339,5 +349,93 @@ td{
   justify-self: end;
   font-size: .9rem;
   color: #373737;
+}
+.bottom section{
+   width: 100%;
+}
+
+@media(min-width:300px) and (max-width:480px){
+    .links_wrapper{
+        grid-area: links;
+        display:none;
+        flex-direction: column !important;
+    }
+    .links_wrapper a{
+        padding: .5rem 0;
+    }
+    #active{
+        border: none !important;
+    }
+    .icons{
+        grid-area: "icons";
+        display: none;
+    }
+    .form_wrapper{
+        flex-direction: column;
+    }
+    .requestnfo_wrapper div{
+        width: 100%;
+        padding: .4rem ;
+    }
+    .requestnfo_wrapper{
+        padding: .5rem;
+    }
+    .customer_request{
+        gap: .5rem;
+    }
+    .hamburger{
+        display: flex;
+        flex-direction: column;
+        gap: .3rem;
+        width: 3rem;
+        grid-area: hamburger;
+    }
+    .logo{
+        grid-area: logo;
+    }
+    .hamburger span{
+     padding: .3rem;
+     background-color: sandybrown;
+     border-radius: 5px;
+    }
+    .nav_wrapper{
+        display: grid;
+        grid-template-areas: 
+        "logo hamburger"
+        "links links"
+        "icons icons";
+        column-gap: .5rem;
+        justify-content: space-between;
+    }
+    #show-menu{
+        display:flex
+    }
+    .customer_wrapper .atn_popup{
+        position: relative;
+        bottom: 0.7rem;
+    right: 0rem;
+    background-color: white;
+    }
+    .generateInv_wrapper{
+        padding: 1rem;
+    }
+    .form_wrapper .right,.left{
+        padding: 1rem;
+        width: fit-content;
+    }
+    .form_wrapper section{
+        width: 23rem;
+    }
+    .submit_wrapper section{
+        width: 23rem;
+    }
+    .previewInvoice_wrapper{
+        padding: 1rem;
+        margin: 0;
+    }
+    .previewInvoice_wrapper .invoiceNfo{
+        width: 22rem;
+        padding: 1rem;
+    }
 }
 
