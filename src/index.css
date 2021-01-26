@@ -354,7 +354,7 @@ td{
    width: 100%;
 }
 
-@media(min-width:300px) and (max-width:480px){
+@media(min-width:300px) and (max-width:780px){
     .links_wrapper{
         grid-area: links;
         display:none;
