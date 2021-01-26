@@ -14,7 +14,8 @@ const PrevInv = (props) => {
       const dateFormat =new Intl.DateTimeFormat("en-US",{dateStyle:"long"})
       const dueDate = new Date(invoice.due_date)
       const issueDate = new Date(invoice.issue_date)
-      console.log(dateFormat.format(dueDate))
+      const formatDue = invoice.due_date? dateFormat.format(dueDate) :null
+      const formatIssue = invoice.issue_date? dateFormat.format(issueDate):null
        return invoice? 
        (
         <div className="previewInvoice_wrapper">
@@ -54,7 +55,7 @@ const PrevInv = (props) => {
               </span>
               <span>
                 <span>CREATED</span>
-                <span>{dateFormat.format(issueDate)}</span>
+                <span>{formatIssue}</span>
               </span>
             </div>
           </section>
@@ -69,7 +70,7 @@ const PrevInv = (props) => {
             <div>
               <span>
                 <span>DUE</span>
-                <span>{dateFormat.format(dueDate)}</span>
+                <span>{formatDue}</span>
               </span>
               <span>
                 <span>AMOUNT</span>
