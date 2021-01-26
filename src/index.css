@@ -228,3 +228,116 @@ i{
     border-radius: 5px;
     color: #606077;
 }
+/*
+===============================
+---> Preview invoice
+===============================
+*/
+.previewInvoice_wrapper{
+    display: grid;
+    width: fit-content;
+    gap: 1rem;
+    margin: 2rem;
+    padding: 2rem;
+}
+.previewInvoice_wrapper .headersub{
+    font-size: .8rem;
+    color: #373737;
+}
+.previewInvoice_wrapper .invoiceNfo{
+    background-color: white;
+    padding: 2rem;
+    border-radius: 5px;
+    width: 35rem;
+    display: grid;
+    gap: 1rem;
+}
+.previewInvoice_wrapper .invoiceNfo section{
+    display: flex;
+    justify-content: space-between;
+}
+.previewInvoice_wrapper .invoiceNfo section div{
+    display: flex;
+    flex-direction: column;
+}
+.previewInvoice_wrapper .invoiceNfo section div:nth-child(2) span{
+    display: flex;
+    flex-direction: column;
+}
+.title span:nth-child(2){
+    color:#606077;
+    text-transform: uppercase;
+}
+.topNfo div:nth-child(1) span,
+.bottomNfo div:nth-child(1) span{
+    color: #373737;
+    font-size: .8rem;
+}
+.topNfo div:nth-child(1) span:nth-child(1),
+.bottomNfo div:nth-child(1) span:nth-child(1){
+    color:#606077;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight:lighter
+}
+.topNfo div:nth-child(1) span:nth-child(2),
+.bottomNfo div:nth-child(1) span:nth-child(2){
+  font-weight: 600;
+  color: #373737;
+  font-size: 1rem;
+}
+.topNfo div:nth-child(2) span span:nth-child(1),
+.bottomNfo div:nth-child(2) span span:nth-child(1){
+    color: #373737;
+    font-size: .8rem;
+}
+.topNfo div:nth-child(2),
+.bottomNfo div:nth-child(2){
+    row-gap: .5rem;
+    text-align: end;
+}
+.topNfo div:nth-child(2) span:nth-child(1) span:nth-child(2){
+color: red;
+font-size: .9rem;
+}
+table{
+    width: 100%;
+}
+th{
+    text-align:justify;
+    color:  #373737;
+    font-size: .8rem;
+    font-weight: lighter;  
+    border-bottom: 1px solid #373737; 
+}
+td{
+    color:  #373737;
+    font-size: .9rem;
+
+}
+.invoiceNfo section:nth-child(5){
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-self: flex-end;
+}
+.invoiceNfo section:nth-child(5) div{
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   width: 15rem;
+   border-top: 1px solid #6e6a6a;
+}
+.invoiceNfo section:nth-child(5) div span{
+    padding: 10px;
+}
+.invoiceNfo section:nth-child(5) div span:nth-child(1){
+    color:#606077;
+    font-weight: lighter;
+    font-size: .8rem;
+}
+.invoiceNfo section:nth-child(5) div span:nth-child(2){
+  justify-self: end;
+  font-size: .9rem;
+  color: #373737;
+}
+

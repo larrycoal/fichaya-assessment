@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { InvContext } from "../../Utils/InvContext";
 
-const GenerateInv = () => {
+const GenerateInv = (props) => {
+  const {  dispatch } = useContext(InvContext);
   const [valid, setMessage] = useState({
-      error:false,
-      message:""
+    error: false,
+    message: "",
   });
   const [formData, setFormData] = useState({
     name: "",
@@ -16,13 +18,13 @@ const GenerateInv = () => {
     vat: "",
     serv_desc: "",
     serv_amount: "",
-    total:""
+    total: "",
   });
 
   const handleFormData = (e) => {
     const { name, value } = e.target;
-    if(name === "email"){
-        validate(value)
+    if (name === "email") {
+      validate(value);
     }
     setFormData({
       ...formData,
@@ -31,53 +33,52 @@ const GenerateInv = () => {
   };
 
   const submitForm = () => {
-    const total = calcTotal()
-    const newFormData = {...formData,total}
-    for(let key in newFormData){
-        if(newFormData[key]===""){
-            setMessage({
-                error:true,
-                message:"Please fill out all the fields"
-            })
-            return
-        }else{
-            setMessage({
-                error:false,
-                message:""
-            })
-        }
-    }
-   if(!valid.error){
-       //dispatch action
-       //link to next page
-   }
-  
-  };
-  const validate = (value) => {
-      const valid = /.{1,}@[^.]{1,}/.test(value)
-      if(!valid){
-          setMessage({
-              error:true,
-              message:"Enter a valid Email"
-          })
-      }else{
+    const total = calcTotal();
+    const newFormData = { ...formData, total };
+    for (let key in newFormData) {
+      if (newFormData[key] === "") {
         setMessage({
-            error:false,
-            message:""
-        })
+          error: true,
+          message: "Please fill out all the fields",
+        });
+        return;
+      } else {
+        setMessage({
+          error: false,
+          message: "",
+        });
       }
     }
-  const calcTotal = ()=>{
-      if(formData.vat && formData.serv_amount){
-     const vat = formData.vat/100
-     const bill = formData.serv_amount
-     const vatCost = vat * bill
-     const total = Math.floor(parseInt(bill)+vatCost)
-     const format = new Intl.NumberFormat()
-    
-     return  format.format(total)
-      }else return 0
-  }
+    if (!valid.error) {
+        dispatch({type:"CREATEINVOICE",payload:{...newFormData}})
+         props.history.push("/request/previnv")
+    }
+  };
+  const validate = (value) => {
+    const valid = /.{1,}@[^.]{1,}/.test(value);
+    if (!valid) {
+      setMessage({
+        error: true,
+        message: "Enter a valid Email",
+      });
+    } else {
+      setMessage({
+        error: false,
+        message: "",
+      });
+    }
+  };
+  const calcTotal = () => {
+    if (formData.vat && formData.serv_amount) {
+      const vat = formData.vat / 100;
+      const bill = formData.serv_amount;
+      const vatCost = vat * bill;
+      const total = Math.floor(parseInt(bill) + vatCost);
+      const format = new Intl.NumberFormat();
+
+      return format.format(total);
+    } else return 0;
+  };
   return (
     <div className="generateInv_wrapper">
       <span className="page_header">Generate invoice</span>
@@ -186,10 +187,7 @@ const GenerateInv = () => {
             </span>
             <span>
               <label>Total Amount</label>
-              <span id="total">{
-              "NGN " + calcTotal()
-              }
-              </span>
+              <span id="total">{"NGN " + calcTotal()}</span>
             </span>
           </section>
         </div>
@@ -198,9 +196,7 @@ const GenerateInv = () => {
         <section>
           <button> Cancel</button>
           <button onClick={submitForm}> Create invoice</button>
-          {
-            valid.error? valid.message:null
-          }
+          {valid.error ? valid.message : null}
         </section>
       </div>
     </div>
